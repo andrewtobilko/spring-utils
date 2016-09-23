@@ -1,4 +1,4 @@
-package com.tobilko.spring.utils;
+package com.tobilko.spring.utils.scope;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PreDestroy;
 
 /**
+ *
  * Created by Andrew Tobilko on 23/09/16.
+ *
  */
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)

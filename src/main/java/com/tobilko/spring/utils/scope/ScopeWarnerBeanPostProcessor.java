@@ -1,4 +1,4 @@
-package com.tobilko.spring.utils;
+package com.tobilko.spring.utils.scope;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanCreationException;
@@ -15,6 +15,7 @@ import java.lang.reflect.Method;
  * The purpose is to avoid mistaken destroy methods in beans which become uncontrolled by the container after their creation.
  *
  * Created by Andrew Tobilko on 23/09/16.
+ *
  */
 @Component
 public class ScopeWarnerBeanPostProcessor implements BeanPostProcessor {

@@ -1,5 +1,7 @@
 package com.tobilko.spring.utils;
 
+import com.tobilko.spring.utils.scope.TestBeanA;
+import com.tobilko.spring.utils.scope.TestBeanB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

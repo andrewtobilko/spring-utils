@@ -1,4 +1,4 @@
-package com.tobilko.spring.utils;
+package com.tobilko.spring.utils.scope;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
