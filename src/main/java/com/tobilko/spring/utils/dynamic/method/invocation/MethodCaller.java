@@ -4,9 +4,6 @@ import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Stream;
 
 /**
@@ -26,20 +23,25 @@ public class MethodCaller {
         return call(object, methodName, arguments, false);
     }
 
+    public static Object call(MethodInformation i) {
+        return call(i.getInstance(), i.getMethod(), i.getArguments());
+    }
+
     /**
-     *
-     * @param object - an instance to invoke a {@param method} on
+     * @param object     - an instance to invoke a {@param method} on
      * @param methodName - the method name
-     * @param arguments - method's arguments
-     * @param digDeep - whether only declared method are counted
-     *
+     * @param arguments  - method's arguments
+     * @param digDeep    - whether only declared method are counted
      * @return - an invocation method result
      */
     public static Object call(Object object, String methodName, Object[] arguments, boolean digDeep) {
         Object invocationResult = null;
         try {
             Class<?> c = object.getClass();
-            Method method = digDeep ? c.getDeclaredMethod(methodName) : c.getMethod(methodName);
+            // turn Object[] into Class[] to specify arguments types
+            Class<?>[] argumentClasses = Stream.of(arguments).map(Object::getClass).toArray(Class<?>[]::new);
+            Method method = digDeep ? c.getDeclaredMethod(methodName, argumentClasses) : c.getMethod(methodName, argumentClasses);
+            // access modifiers are ignored
             method.setAccessible(true);
             invocationResult = method.invoke(object, arguments);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
