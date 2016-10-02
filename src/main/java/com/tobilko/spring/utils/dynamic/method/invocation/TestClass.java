@@ -7,11 +7,9 @@ package com.tobilko.spring.utils.dynamic.method.invocation;
  */
 public class TestClass {
 
-    public static void main(String[] args) {
-        System.out.println(MethodCaller.call(new TestClass(), "sayHello", "Andrew"));
-    }
-
     public String sayHello(String s) {
         return "Hello, " + s + "!";
     }
+
 }
+

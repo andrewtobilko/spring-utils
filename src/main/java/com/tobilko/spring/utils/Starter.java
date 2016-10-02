@@ -25,10 +25,4 @@ public class Starter {
     private @Autowired TestBeanB b;
     private @Autowired TestClass c;
 
-    public @Bean ApplicationRunner execute() {
-        return (args) -> {
-            c.method();
-        };
-    }
-
 }
