@@ -1,12 +1,12 @@
 package com.tobilko.spring.utils;
 
 import com.tobilko.spring.utils.deprecated.code.switcher.TestClass;
+import com.tobilko.spring.utils.scope.HighCouplingPreventerBeanPostProcessor;
 import com.tobilko.spring.utils.scope.TestBeanA;
 import com.tobilko.spring.utils.scope.TestBeanB;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationRunner;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 import static org.springframework.boot.SpringApplication.run;
 
@@ -24,5 +24,9 @@ public class Starter {
     private @Autowired TestBeanA a;
     private @Autowired TestBeanB b;
     private @Autowired TestClass c;
+
+    public BeanPostProcessor getPreventer() {
+        return new HighCouplingPreventerBeanPostProcessor(true);
+    }
 
 }
