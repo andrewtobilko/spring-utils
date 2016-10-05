@@ -27,7 +27,7 @@ public class HighCouplingPreventerBeanPostProcessor implements BeanPostProcessor
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         // gets called exactly before the afterPropertiesSet method
         if(of(bean.getClass().getInterfaces()).anyMatch(c -> c.equals(InitializingBean.class) || c.equals(DisposableBean.class))) {
-            String message = "Try not to couple the code to String interfaces.";
+            String message = "Try not to couple the code to Spring interfaces.";
             if(isStrictMode) {
                 throw new BeansException(message) {};
             } else {
