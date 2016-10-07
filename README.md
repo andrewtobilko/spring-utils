@@ -28,3 +28,14 @@ Probably, it will be helpful to you, as it was to me.
     - the `@PreDestroy` annotation on a method with any given name [the most appropriate way]
     - XML's `destroy-method` inside the `bean` tag [faugh]
     
+3. Other callbacks
+
+    * implement the `Lifecycle` to be subscribed to `start`/`stop` context's events
+    * implement the `SmartLifecycle` to complement the `Lifecycle` and add 
+        * asynchronous closure (a `Runnable` call after all destruction stuff to perform `CountDownLatch#countDown`)
+        * priority (`MIN_VALUE` to get started the first and die the last),
+        * auto-startup capabilities (startup on refresh events)
+    
+*It's possible to combine lifecycle mechanisms (if each mechanism is configured with a different method name). The order is `@PostConstruct`/`@Predestroy` annotations, callback interfaces, custom methods.
+
+**Bean definition inheritance**

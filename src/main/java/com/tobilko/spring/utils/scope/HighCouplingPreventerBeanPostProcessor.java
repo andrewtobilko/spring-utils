@@ -21,7 +21,7 @@ import static java.util.stream.Stream.*;
 public class HighCouplingPreventerBeanPostProcessor implements BeanPostProcessor {
 
     // throwing an exception or printing a message out
-    private @NonNull boolean isStrictMode;
+    private boolean isStrictMode;
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
