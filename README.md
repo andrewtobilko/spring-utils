@@ -35,7 +35,19 @@ Probably, it will be helpful to you, as it was to me.
         * asynchronous closure (a `Runnable` call after all destruction stuff to perform `CountDownLatch#countDown`)
         * priority (`MIN_VALUE` to get started the first and die the last),
         * auto-startup capabilities (startup on refresh events)
-    
+        
+4. Aware interfaces
+
+    * `ApplicationContextAware` to get a context that has created the bean and is still managing it
+    * `BeanNameAware` to get a name from the bean's `BeanDefinition` before an initialization method is call
+    * other 
+
 *It's possible to combine lifecycle mechanisms (if each mechanism is configured with a different method name). The order is `@PostConstruct`/`@Predestroy` annotations, callback interfaces, custom methods.
 
 **Bean definition inheritance**
+
+* use the `ChildBeanDefinition` (since 2.5 `GenericBeanDefinition`) to extend a `BeanDefinition` instance programmatically
+* use the XML's `parent` attribute to inherit a bean definition declaratively [`override` to get a parent's property value]
+* all settings are inherited except for *depends on*, *autowire mode*, *dependency check*, *singleton*, *lazy init*
+* define an `abstract` bean if it is used only as a template for bean creation [to avoid pre-instantiating such beans (the container's `preInstantiateSingletons` will ingore them)] 
+
