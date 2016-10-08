@@ -51,3 +51,34 @@ Probably, it will be helpful to you, as it was to me.
 * all settings are inherited except for *depends on*, *autowire mode*, *dependency check*, *singleton*, *lazy init*
 * define an `abstract` bean if it is used only as a template for bean creation [to avoid pre-instantiating such beans (the container's `preInstantiateSingletons` will ingore them)] 
 
+**Integration interfaces**
+
+1. BeanPostProcessor
+
+    * is scoped per-container
+    * provides callback methods (before [`postProcessBeforeInitialization`] and after [`postProcessAfterInitialization`] initialization callbacks) to modify a bean
+    * register by
+    
+        * implementing the `BeanPostProcessor` with the `@Component` annotation
+        * using `ConfigurableBeanFactory#addBeanPostProcessor` for conditional logic/coping BBPs for different contexts [`Ordered` doesn't matter in this case, it works only for autodetected BBPs, beans registered in such way are always processed before other]
+
+    * is not eligible for auto-proxying
+
+2. BeanFactoryPostProcessor
+
+    * is scoped per-container
+    * operates on the bean configuration metadata
+    * modifies metadata before the container creates any beans (excluding BPPs)
+    * lazy initialization settings will be ignored (as with BBPs)
+    * provides a callback method `postProcessBeanFactory(ConfigurableListableBeanFactory)`
+    * use the `PropertyPlaceholderConfigurer` BFPP to externalize values from a bean definition in a separate file by `Properties` format
+    * the `PropertyOverrideConfigurer` BFPP is like a latter, but can have default values or no values at all for bean properties
+    
+3. FactoryBean
+
+    * uses to provide custom complex initialization logic
+    * takes responsibility for instantiating and managing beans by itself
+    * consider the `SmartFactoryBean` to get more fine-grained control
+    * preface `&` with a bean name to get a `BeanFactory` instance that produces these beans [`getBean("&bean")`]
+    
+**Annotation-based configuration**
