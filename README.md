@@ -53,7 +53,7 @@ Probably, it will be helpful to you, as it was to me.
 
 **Integration interfaces**
 
-1. BeanPostProcessor
+1. `BeanPostProcessor`
 
     * is scoped per-container
     * provides callback methods (before [`postProcessBeforeInitialization`] and after [`postProcessAfterInitialization`] initialization callbacks) to modify a bean
@@ -64,7 +64,7 @@ Probably, it will be helpful to you, as it was to me.
 
     * is not eligible for auto-proxying
 
-2. BeanFactoryPostProcessor
+2. `BeanFactoryPostProcessor`
 
     * is scoped per-container
     * operates on the bean configuration metadata
@@ -74,7 +74,7 @@ Probably, it will be helpful to you, as it was to me.
     * use the `PropertyPlaceholderConfigurer` BFPP to externalize values from a bean definition in a separate file by `Properties` format
     * the `PropertyOverrideConfigurer` BFPP is like a latter, but can have default values or no values at all for bean properties
     
-3. FactoryBean
+3. `FactoryBean`
 
     * uses to provide custom complex initialization logic
     * takes responsibility for instantiating and managing beans by itself
@@ -87,3 +87,23 @@ Probably, it will be helpful to you, as it was to me.
 * [-] leads to recompiling source code
 * [-] calls before XML configuration, the latter can override properties
 * [+] makes shorter and more concise configuration
+
+___
+
+1. `@Required`
+
+    * is being processed by a `RequiredAnnotationBeanPostProcessor`
+    * enforces required JavaBean properties to have been configured, if a property hasn't been set, throws a `BeanCreationException`
+    * doesn't check a value (e.g. `null` checking)
+    * a target is a method only
+
+2. `@Autowired` (or `Injected` by JSR)
+
+    * is being processed by a `AutowiredAnnotationBeanPostProcessor`
+    * a marker for DI [constructors, setters, fields, configuration methods or their mix]
+    * is used over arrays/lists/sets to provide all beans of a particular type [use `@Order` (`@Priority`) annotations or implement the `Ordered` interface to put them in a specified order]
+    * is used over maps with `String` keys to provide `{{"bean1", bean1}, ... }`
+    * is required by default, can set the `required` property to `false` [no exceptions are thrown in contrast with the `@Required`]
+    * can't be applied within custom `BFPP`s and `BPP`s (it's possible via XML or `@Bean` methods) *
+       
+*the same relates to the `@Resource`, `@Value` annotations
