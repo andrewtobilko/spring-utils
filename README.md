@@ -82,3 +82,8 @@ Probably, it will be helpful to you, as it was to me.
     * preface `&` with a bean name to get a `BeanFactory` instance that produces these beans [`getBean("&bean")`]
     
 **Annotation-based configuration**
+
+* [-] decentralizes the configuration
+* [-] leads to recompiling source code
+* [-] calls before XML configuration, the latter can override properties
+* [+] makes shorter and more concise configuration
