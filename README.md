@@ -97,7 +97,7 @@ ___
     * doesn't check a value (e.g. `null` checking)
     * a target is a method only
 
-2. `@Autowired` (or `Injected` by JSR)
+2. `@Autowired` (or `Injected` by JSR 330)
 
     * is being processed by a `AutowiredAnnotationBeanPostProcessor`
     * a marker for DI [constructors, setters, fields, configuration methods or their mix]
@@ -105,5 +105,32 @@ ___
     * is used over maps with `String` keys to provide `{{"bean1", bean1}, ... }`
     * is required by default, can set the `required` property to `false` [no exceptions are thrown in contrast with the `@Required`]
     * can't be applied within custom `BFPP`s and `BPP`s (it's possible via XML or `@Bean` methods) *
-       
+    
+3. `@Primary`
+
+    * gives a preference to a bean over other multiple candidates
+    * if exactly one 'primary' bean exists among the candidates, it will be the autowired value
+    * is equivalent to the `primary` attribute in XML
+    * `@Target({TYPE, METHOD})`
+
+4. `@Qualifier`
+
+    * gives more control than the `@Primary`
+    * declares a specific value to autowire [a bean name is considered a default qualifier value]
+    * marks other annotations to use them as qualifiers
+    * can be applied to typed collection [all matching beans according to the declared qualifiers are injected]
+    * `@Target({FIELD, METHOD, PARAMETER, TYPE, ANNOTATION_TYPE})`
+    * can be defined in XML like `<qualifier type="className" value="..." .../>`
+    * supports generics types (e.g. `StringStore` instances (extend `Store<String>`) will be injected to `Store<String>`) [works with collections/arrays]
+    
+5. `@Resource`
+
+    * provides injection (JSR 250) by a bean name [falls back to the `@Autowired` and by-type autowiring]
+    * works on fields and setters
+    * takes a name attribute (a bean name if no value is specified)
+    
+6. `@PostConstruct`, `@PreDestroy`
+
+    * are processed by a `CommonAnnotationBeanPostProcessor`, read "Bean lifecycle" above
+    
 *the same relates to the `@Resource`, `@Value` annotations
