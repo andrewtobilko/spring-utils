@@ -134,3 +134,16 @@ ___
     * are processed by a `CommonAnnotationBeanPostProcessor`, read "Bean lifecycle" above
     
 *the same relates to the `@Resource`, `@Value` annotations
+
+**Classpath scanning**
+
+* stereotype annotations`@Component` and @Controller`, `@Service`, `@Repository` (all mata-annotated with `@Component`)
+    
+    * are more properly suited for processing by tools or associating with aspects
+    * may carry additional semantics in future releases
+    
+*  meta-annotations
+
+    * is an annotation that can be applied to another annotation (e.g. `@Component` to `@Service`)
+    * can also be combined to create composed annotations (e.g. `@RestController` = `@Controller` + `@ResponseBody`)
+    * can redeclare attributes from a parent meta-annotation
