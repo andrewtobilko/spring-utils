@@ -137,7 +137,7 @@ ___
 
 **Classpath scanning**
 
-* stereotype annotations`@Component` and @Controller`, `@Service`, `@Repository` (all mata-annotated with `@Component`)
+* stereotype annotations`@Component` and `@Controller`, `@Service`, `@Repository` (all mata-annotated with `@Component`)
     
     * are more properly suited for processing by tools or associating with aspects
     * may carry additional semantics in future releases
