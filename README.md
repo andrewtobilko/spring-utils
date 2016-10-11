@@ -147,3 +147,26 @@ ___
     * is an annotation that can be applied to another annotation (e.g. `@Component` to `@Service`)
     * can also be combined to create composed annotations (e.g. `@RestController` = `@Controller` + `@ResponseBody`)
     * can redeclare attributes from a parent meta-annotation
+    
+* autodetection support
+
+    * need to add the `@ComponentScan` in a `@Configuration` class with the `basePackages`/`value` attribute
+    * [XML] need to add `<context:component-scan>` (in such case, `<context:annotation-config>` can be removed)
+    
+* scanning filters
+
+    * filter types
+        
+        * annotation (components are annotated with this *annotation*) [default]
+        * assignable (components are assignable to this *class*)
+        * aspectj (an AspectJ type expression)
+        * regex (a regex expression)
+        * custom (a custom `TypeFilter` implementation)
+        
+    * use the `includeFilters` or `excludeFilters` attributes with the `@ComponentScan`
+    * [XML] use the `include-filter` or `exclude-filter` sub-elements of the `component-scan` element
+    * use `useDefaultFilters=false` (`use-default-filters="false"`) to disable the default filters (which detect `@Component`, ... , `@Configuration`)
+   
+*static `@Bean` methods // todo
+**the `@Qualifier`, `@Scope` support and annotate type-level targets
+***use a `BeanNameGenerator` implementation to provide a custom bean-naming strategy
