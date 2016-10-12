@@ -170,3 +170,15 @@ ___
 *static `@Bean` methods // todo
 **the `@Qualifier`, `@Scope` support and annotate type-level targets
 ***use a `BeanNameGenerator` implementation to provide a custom bean-naming strategy
+
+**JSR 330 annotations**
+
+* `@Inject` [`@Autowired`] - `@Inject` has no 'required' attribute; can be used with Java 8’s `Optional`
+* `@Named`/`@ManagedBean` [`@Component`] - requires you to specify the name explicitly
+* `@Singleton` [`@Scope("singleton")`]
+* `@Qualifier`/ `@Named` [`@Qualifier`] - `@Qualifier` is just a meta-annotation for building custom qualifiers; concrete qualifiers can be associated through `@Named`
+* `Provider` [`ObjectFactory`] - a shorter `get()` method name
+
+*JSR doesn't have equivalents for Spring's `@Value`, `@Required`, `@Lazy`
+
+**Java-based configuration**
