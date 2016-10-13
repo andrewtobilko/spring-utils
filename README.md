@@ -182,3 +182,20 @@ ___
 *JSR doesn't have equivalents for Spring's `@Value`, `@Required`, `@Lazy`
 
 **Java-based configuration**
+
+1. `@Bean`
+
+    * an indicator that a method instantiates, configures and initializes a new object to be managed by the container
+    * can be used with any `@Component`*, but usually with the `@Configuration`
+    * `@Target({METHOD, ANNOTATION_TYPE})`
+
+2. `@Configuration`
+
+    * a source of bean definitions
+    * `@Target(TYPE)`
+
+3. `@Import`
+
+    *
+    
+*a `lite` mode - the situation when a `@Bean` method is declared within a `@Component` [one `@Bean` method should not invoke another `@Bean` method]
