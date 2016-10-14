@@ -245,3 +245,55 @@ ___
 +resources can be dependencies [a type will be chosen by the context, possible to force that]
 ++supports wildcards in paths (with some restrictions and implications on portability)
 +++`/path/` and `path/` are considered equivalent relative paths [if an absolute path is needed, use `UrlResource` with `file:///path`]
+
+
+### Validation and data binding
+
+1. `Validator`
+
+    * use to validate objects
+    * reports about all validation failures to a `Errors` instance
+    * has 2 methods
+        
+        * `supports(Class)` - does a `Validator` supports instances of that type?
+        * `validate(Object, Errors)` - validates the given instance, registers errors with the given `Errors` object
+
+2. `ValidationUtils`
+
+    * provides convenience static methods
+        
+        * for validator invocation like `invokeValidator`
+        * for rejecting empty fields and/or whitespaces in values like `rejectIfEmptyOrWhitespace`
+        
+3. `MessageCodesResolver`
+
+    * when we form an `Errors` instance (e.g. by the `rejectValue`), the underlying implementation won't only register the code
+    * additionally it adds a number of error codes
+    * consider the default strategy `DefaultMessageCodesResolver`
+    
+4. `BeanWrapper`
+
+    * offers functionality
+    
+        * to set and get property values (individually or in bulk), get property descriptors
+        * offers functionality to set and get property values (individually or in bulk)
+   
+    * supports the ability to add `PropertyChangeListener`s and `VetoableChangeListener`s
+    * offers support for nested properties to an unlimited depth
+        
+        * `name` [`getName()`, `setName(String)`]
+        * `account.name` [`getAccount().getName()`, `getAccount().setName(String)`]
+        
+    * provides support for the setting of indexed properties
+    
+        * `account[2]` [the third element of the indexed property account (list, array, other ordered collection)]
+        * `account[key]` [the value by the `k` key of the `account` map]
+    
+    * usually is used by the `DataBinder` and the `BeanFactory`
+    
+        
+*Best validation practices*
+
+* encapsulate the validation logic for each nested class of object in its own `Validator` implementation
+* inject validators for a `rich` class
+* validate all `Validator` instances in a constructor
