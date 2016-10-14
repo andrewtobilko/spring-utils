@@ -42,7 +42,7 @@ Probably, it will be helpful to you, as it was to me.
     * `BeanNameAware` to get a name from the bean's `BeanDefinition` before an initialization method is call
     * other 
 
-*It's possible to combine lifecycle mechanisms (if each mechanism is configured with a different method name). The order is `@PostConstruct`/`@Predestroy` annotations, callback interfaces, custom methods.
+*It's possible to combine lifecycle mechanisms (if each mechanism is configured with a different method name). The order is `@PostConstruct`/`@Predestroy` annotations, callback interfaces, custom methods.  
 
 **Bean definition inheritance**
 
@@ -133,7 +133,7 @@ ___
 
     * are processed by a `CommonAnnotationBeanPostProcessor`, read "Bean lifecycle" above
     
-*the same relates to the `@Resource`, `@Value` annotations
+*the same relates to the `@Resource`, `@Value` annotations  
 
 **Classpath scanning**
 
@@ -167,9 +167,9 @@ ___
     * [XML] use the `include-filter` or `exclude-filter` sub-elements of the `component-scan` element
     * use `useDefaultFilters=false` (`use-default-filters="false"`) to disable the default filters (which detect `@Component`, ... , `@Configuration`)
    
-*static `@Bean` methods // todo
-**the `@Qualifier`, `@Scope` support and annotate type-level targets
-***use a `BeanNameGenerator` implementation to provide a custom bean-naming strategy
+*static `@Bean` methods // todo  
+**the `@Qualifier`, `@Scope` support and annotate type-level targets  
+***use a `BeanNameGenerator` implementation to provide a custom bean-naming strategy  
 
 **JSR 330 annotations**
 
@@ -198,7 +198,7 @@ ___
 
     *
     
-*a `lite` mode - the situation when a `@Bean` method is declared within a `@Component` [one `@Bean` method should not invoke another `@Bean` method]
+*a `lite` mode - the situation when a `@Bean` method is declared within a `@Component` [one `@Bean` method should not invoke another `@Bean` method]  
 
 
 ### Resources
@@ -242,7 +242,7 @@ ___
     * the same possible with `ApplicationContextAware` but then the whole `ApplicationContext` instance will be provided
     * the same possible with autowiring (Spring 2.5+)
 
-*resources can be dependencies [a type will be chosen by the context, possible to force that]
-**supports wildcards in paths (with some restrictions and implications on portability)
-***`/path/` and `path/` are considered equivalent relative paths [if an absolute path is needed, use `UrlResource` with `file:///path`]
+*resources can be dependencies [a type will be chosen by the context, possible to force that]  
+**supports wildcards in paths (with some restrictions and implications on portability)  
+***`/path/` and `path/` are considered equivalent relative paths [if an absolute path is needed, use `UrlResource` with `file:///path`]  
 
