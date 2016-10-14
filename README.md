@@ -167,9 +167,9 @@ ___
     * [XML] use the `include-filter` or `exclude-filter` sub-elements of the `component-scan` element
     * use `useDefaultFilters=false` (`use-default-filters="false"`) to disable the default filters (which detect `@Component`, ... , `@Configuration`)
    
-*static `@Bean` methods // todo  
-**the `@Qualifier`, `@Scope` support and annotate type-level targets  
-***use a `BeanNameGenerator` implementation to provide a custom bean-naming strategy  
++static `@Bean` methods // todo
+++the `@Qualifier`, `@Scope` support and annotate type-level targets
++++use a `BeanNameGenerator` implementation to provide a custom bean-naming strategy
 
 **JSR 330 annotations**
 
@@ -179,7 +179,7 @@ ___
 * `@Qualifier`/ `@Named` [`@Qualifier`] - `@Qualifier` is just a meta-annotation for building custom qualifiers; concrete qualifiers can be associated through `@Named`
 * `Provider` [`ObjectFactory`] - a shorter `get()` method name
 
-*JSR doesn't have equivalents for Spring's `@Value`, `@Required`, `@Lazy`
++JSR doesn't have equivalents for Spring's `@Value`, `@Required`, `@Lazy`
 
 **Java-based configuration**
 
@@ -198,7 +198,7 @@ ___
 
     *
     
-*a `lite` mode - the situation when a `@Bean` method is declared within a `@Component` [one `@Bean` method should not invoke another `@Bean` method]  
++the `lite` mode - the situation when a `@Bean` method is declared within a `@Component` [one `@Bean` method should not invoke another `@Bean` method]  
 
 
 ### Resources
@@ -242,7 +242,6 @@ ___
     * the same possible with `ApplicationContextAware` but then the whole `ApplicationContext` instance will be provided
     * the same possible with autowiring (Spring 2.5+)
 
-*resources can be dependencies [a type will be chosen by the context, possible to force that]  
-**supports wildcards in paths (with some restrictions and implications on portability)  
-***`/path/` and `path/` are considered equivalent relative paths [if an absolute path is needed, use `UrlResource` with `file:///path`]  
-
++resources can be dependencies [a type will be chosen by the context, possible to force that]
+++supports wildcards in paths (with some restrictions and implications on portability)
++++`/path/` and `path/` are considered equivalent relative paths [if an absolute path is needed, use `UrlResource` with `file:///path`]
