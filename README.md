@@ -199,3 +199,50 @@ ___
     *
     
 *a `lite` mode - the situation when a `@Bean` method is declared within a `@Component` [one `@Bean` method should not invoke another `@Bean` method]
+
+
+### Resources
+
+* no adequate standard classes for access to low-level resources
+* no standardized `URL` access to resources from the classpath / a `ServletContext`  
+* complications with creating a custom handler
+
+___
+
+1. `InputStreamSource`
+
+    * `InputStream getInputStream()` return a fresh `InputStream` for reading from. You're responsible for its closing. 
+
+2. `Resource`
+
+    * `boolean exists()` - does the resource actually exist in physical form?
+    * `boolean isOpen()` - is resource's stream open? `true` - read only once, then close; `false` - for usual resource implementations
+    * usually takes a `String` to create a `Resource`
+    * a wrapper (when it's possible, e.g. `URLResource` wraps `URL`)
+    
+3. `Resource` implementations
+    
+    * `URLResource` [`URL`] - to access any object via a URL (`http:`, `ftp:`, `file:`)
+    * `ClassPathResource` - to access to resources from the `classpath:` (provides a `File` if a resource resides in the classpath, otherwise a `URL` [e.g. for`.jar`s])
+    * `FileSytemResource` supports as a `File` and as a `URL`
+    * `ServletContextResource` interprets relative paths inside web application's root directory, supports stream access, `URL` and `File` (if the resource is physically on the filesystem [archive is expanded])
+    * `InputStreamResource` - shouldn't be used if a specific `Resource` implementation exists
+    * `ByteArrayResource` - 
+    
+4. `ResourceLoader`
+
+    * `Resource getResource(String location)`
+        
+         * returns a corresponding resource depends on the underlying context [!]
+         * can force a concrete resource to be used by specifying a prefix
+
+5. `ResourceLoaderAware`
+
+    * `setResourceLoader(ResourceLoader resourceLoader)` to get a `ResourceLoader`, the context supplies itself to provide a loader (all `ApplicationContext`s are `ResourceLoader`s)
+    * the same possible with `ApplicationContextAware` but then the whole `ApplicationContext` instance will be provided
+    * the same possible with autowiring (Spring 2.5+)
+
+*resources can be dependencies [a type will be chosen by the context, possible to force that]
+**supports wildcards in paths (with some restrictions and implications on portability)
+***`/path/` and `path/` are considered equivalent relative paths [if an absolute path is needed, use `UrlResource` with `file:///path`]
+
