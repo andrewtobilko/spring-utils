@@ -37,10 +37,3 @@ public class Starter {
     private @Autowired LifecycleTestBean lifecycleTestBean;
 
 }
-
-class A {
-    public static void main(String[] args) {
-
-        BeanWrapper wrapper = new BeanWrapperImpl(new TestBeanA());
-    }
-}
