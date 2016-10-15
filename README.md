@@ -42,7 +42,10 @@ Probably, it will be helpful to you, as it was to me.
     * `BeanNameAware` to get a name from the bean's `BeanDefinition` before an initialization method is call
     * other 
 
-*It's possible to combine lifecycle mechanisms (if each mechanism is configured with a different method name). The order is `@PostConstruct`/`@Predestroy` annotations, callback interfaces, custom methods.  
+*Notes:*
+
+* It's possible to combine lifecycle mechanisms (if each mechanism is configured with a different method name). The order is `@PostConstruct`/`@Predestroy` annotations, callback interfaces, custom methods.  
+
 
 **Bean definition inheritance**
 
@@ -133,7 +136,10 @@ ___
 
     * are processed by a `CommonAnnotationBeanPostProcessor`, read "Bean lifecycle" above
     
-*the same relates to the `@Resource`, `@Value` annotations  
+*Notes:*    
+
+* the same relates to the `@Resource`, `@Value` annotations  
+
 
 **Classpath scanning**
 
@@ -167,9 +173,12 @@ ___
     * [XML] use the `include-filter` or `exclude-filter` sub-elements of the `component-scan` element
     * use `useDefaultFilters=false` (`use-default-filters="false"`) to disable the default filters (which detect `@Component`, ... , `@Configuration`)
    
-+static `@Bean` methods // todo
-++the `@Qualifier`, `@Scope` support and annotate type-level targets
-+++use a `BeanNameGenerator` implementation to provide a custom bean-naming strategy
+*Notes:*   
+
+* static `@Bean` methods // todo
+* the `@Qualifier`, `@Scope` support and annotate type-level targets
+* use a `BeanNameGenerator` implementation to provide a custom bean-naming strategy
+
 
 **JSR 330 annotations**
 
@@ -179,7 +188,9 @@ ___
 * `@Qualifier`/ `@Named` [`@Qualifier`] - `@Qualifier` is just a meta-annotation for building custom qualifiers; concrete qualifiers can be associated through `@Named`
 * `Provider` [`ObjectFactory`] - a shorter `get()` method name
 
-+JSR doesn't have equivalents for Spring's `@Value`, `@Required`, `@Lazy`
+*Notes:*
+
+* JSR doesn't have equivalents for Spring's `@Value`, `@Required`, `@Lazy`
 
 **Java-based configuration**
 
@@ -193,12 +204,12 @@ ___
 
     * a source of bean definitions
     * `@Target(TYPE)`
-
-3. `@Import`
-
-    *
     
-+the `lite` mode - the situation when a `@Bean` method is declared within a `@Component` [one `@Bean` method should not invoke another `@Bean` method]  
+// TODO    
+    
+*Notes:*    
+
+* the `lite` mode - the situation when a `@Bean` method is declared within a `@Component` [one `@Bean` method should not invoke another `@Bean` method]  
 
 
 ### Resources
@@ -242,12 +253,16 @@ ___
     * the same possible with `ApplicationContextAware` but then the whole `ApplicationContext` instance will be provided
     * the same possible with autowiring (Spring 2.5+)
 
-+resources can be dependencies [a type will be chosen by the context, possible to force that]
-++supports wildcards in paths (with some restrictions and implications on portability)
-+++`/path/` and `path/` are considered equivalent relative paths [if an absolute path is needed, use `UrlResource` with `file:///path`]
+*Notes:*
+
+* resources can be dependencies [a type will be chosen by the context, possible to force that]
+* supports wildcards in paths (with some restrictions and implications on portability)
+* `/path/` and `path/` are considered equivalent relative paths [if an absolute path is needed, use `UrlResource` with `file:///path`]
 
 
-### Validation and data binding
+### Validation, Data Binding, and Type Conversion
+
+**Validation**
 
 1. `Validator`
 
@@ -271,7 +286,16 @@ ___
     * additionally it adds a number of error codes
     * consider the default strategy `DefaultMessageCodesResolver`
     
-4. `BeanWrapper`
+*Best validation practices:*
+
+* encapsulate the validation logic for each nested class of object in its own `Validator` implementation
+* inject validators for a `rich` class
+* validate all `Validator` instances in a constructor    
+
+    
+**Bean manipulation**    
+    
+1. `BeanWrapper`
 
     * offers functionality
     
@@ -291,7 +315,7 @@ ___
     
     * usually is used by the `DataBinder` and the `BeanFactory`
   
-5. `PropertyEditor`
+2. `PropertyEditor`
     
     * the main Spring's concept to make the conversion between an `Object` and a `String` (e.g. the `ClassEditor` is used when you're setting a `Class` property in XML, [other built-in `PropertyEditor` implementations](http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#beans-beans-conversion))
     * can be autodetected if it lays in the same place as a bean does and has a name in the format `BeanClass` + `Editor`
@@ -300,13 +324,8 @@ ___
     
         * `ConfigurableBeanFactory#registerCustomEditor()` [is not recommended]
         * using a special bean factory post-processor `CustomEditorConfigurer` with a `ApplicationContext` [more convenient]
-        * creating a custom `PropertyEditorRegistrar` (if you need to use the same set of property editors in several different situations) 
+        * creating a custom `PropertyEditorRegistrar` (if you need to use the same set of property editors in several different situations)
         
-*Best validation practices*
-
-* encapsulate the validation logic for each nested class of object in its own `Validator` implementation
-* inject validators for a `rich` class
-* validate all `Validator` instances in a constructor
 
 **Spring Type Conversion**
 
