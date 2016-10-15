@@ -290,10 +290,54 @@ ___
         * `account[key]` [the value by the `k` key of the `account` map]
     
     * usually is used by the `DataBinder` and the `BeanFactory`
+  
+5. `PropertyEditor`
     
+    * the main Spring's concept to make the conversion between an `Object` and a `String` (e.g. the `ClassEditor` is used when you're setting a `Class` property in XML, [other built-in `PropertyEditor` implementations](http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#beans-beans-conversion))
+    * can be autodetected if it lays in the same place as a bean does and has a name in the format `BeanClass` + `Editor`
+    * can be registered via the `BeanInfo` class (`getPropertyDescriptors` [descriptors contain an array of editors]) which lays in the same package
+    * other ways to register a custom editor
+    
+        * `ConfigurableBeanFactory#registerCustomEditor()` [is not recommended]
+        * using a special bean factory post-processor `CustomEditorConfigurer` with a `ApplicationContext` [more convenient]
+        * creating a custom `PropertyEditorRegistrar` (if you need to use the same set of property editors in several different situations) 
         
 *Best validation practices*
 
 * encapsulate the validation logic for each nested class of object in its own `Validator` implementation
 * inject validators for a `rich` class
 * validate all `Validator` instances in a constructor
+
+**Spring Type Conversion**
+
+1. `Converter`
+
+    * an SPI to the conversion between `S` and `T` (`T convert(S source)`)
+    * `S` is guaranteed to be not `null` (throw any unchecked exception if conversion fails) 
+    * make your implementation thread-safe
+
+2. `ConverterFactory`
+
+    * centralizes the conversion logic for an entire class hierarchy (`<T extends R> Converter<S, T> getConverter(Class<T> targetType)`)
+    
+3. `GenericConverter`
+
+    * provides more flexibility but is less strongly typed (`Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType)`)
+    * has 2 methods
+        
+        * `Set<ConvertiblePair> getConvertibleTypes()` - a set of pairs `source` -> `target`  
+        * `Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType)` to support converting between multiple source and target types
+        
+4. `ConditionalGenericConverter`        
+
+    * is a `GenericConverter` with a condition `boolean matches(TypeDescriptor sourceType, TypeDescriptor targetType)`
+    * is used when you want to execute a `Converter` if a condition is true
+    
+5. `ConversionService`
+ 
+    * for executing type conversations at runtime
+    * delegates conversion logic to registered converters carrying out type safety [implementation]
+    * implements the `ConverterRegistry` to register converters [implementation]
+    * is a stateless thread-safe instance
+    * mush be instantiated at the container's startup
+    * can be injected and used programmatically
