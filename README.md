@@ -360,3 +360,36 @@ ___
     * is a stateless thread-safe instance
     * mush be instantiated at the container's startup
     * can be injected and used programmatically
+    
+    
+**Field Formatting**
+
+* converting from `String` to support the client postback process
+* converting to `String` to support the view rendering process
+* localization
+    
+___
+
+1. `Formatter`
+    
+    * `Parser` [`T parse(String value, Locale locale) throws ParseException`] to parse an instance of T from the formatted representation returned from the client locale
+    * `Printer` [`String print(T value, Locale locale)`] to print an instance of T for display in the client locale
+
+2. `AnnotationFormatterFactory`
+
+    * implement to provide annotation-based formatting
+    * have `getFieldTypes()` return the types of fields the annotation may be used on
+    * have `getPrinter()` return a `Printer` to print the value of an annotated field
+    * have `getParser()` return a `Parser` to parse a client value for an annotated field
+    
+3. `FormatterRegistry` and `FormatterRegistrar`    
+
+    * the `FormatterRegistry` configures Formatting rules centrally, instead of duplicating such configuration across your Controllers
+    * the `FormatterRegistrar` registers such registries
+    
+    
+**Validation**
+
+* Spring provides full support for Validation API (JSR 303)
+* need inject either the `ValidatorFactory` or the `Validator` to turn the validation on [the default `LocalValidatorFactoryBean`] 
+
