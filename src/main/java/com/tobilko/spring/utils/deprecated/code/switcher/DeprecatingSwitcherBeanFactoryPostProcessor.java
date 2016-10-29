@@ -14,10 +14,6 @@ import org.springframework.stereotype.Component;
  */
 public class DeprecatingSwitcherBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
-    public void init() {
-
-    }
-
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory factory) throws BeansException {
         for (String name : factory.getBeanDefinitionNames()) {
