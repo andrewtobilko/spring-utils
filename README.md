@@ -2,6 +2,12 @@ Probably, it will be helpful to you, as it was to me.
 
 ###Short Spring Reference
 
+**Lazy-initialization**
+
+- turned on by default
+- `lazy-init` is a setting for a bean
+- `default-lazy-init` is a setting for a container
+
 **Scopes**
 
 1. `singleton` (only one instance is created for a single Spring container [beans are stored in a cache], is used for stateless beans)
