@@ -1,5 +1,3 @@
-Probably, it will be helpful to you, as it was to me.
-
 ###Short Spring Reference
 
 **Lazy-initialization**
