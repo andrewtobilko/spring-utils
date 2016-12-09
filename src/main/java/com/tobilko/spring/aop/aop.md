@@ -29,3 +29,9 @@
 
 - a regular bean definition [XML]
 - a class with the `@Aspect` annotation [Java]
+
+**Declaring a pointput**
+
+- the `@Pointcut` annotation to define a pointput
+- has two part (pointcut signature [method signature], pointcut expression [a value of `@Pointcut`])
+- a pointcut signature must have a `void` return type
