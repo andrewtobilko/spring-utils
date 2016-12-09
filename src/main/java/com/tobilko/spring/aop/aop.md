@@ -1,4 +1,6 @@
-###AOP with Spring
+### AOP with Spring
+
+## Introduction
 
 **Main concepts**
 
@@ -11,3 +13,19 @@
 - *proxy* is an object created to implement the aspect contracts;
 - *wearing* is linking aspects with other application types or objects to create an advised object.
 
+**Capabilities and goals**
+
+- pure Java implementation;
+- supports only method execution;
+- uses standard default JDK dynamic proxies to proxy interfaces;
+- can use CGLIB proxies to proxy classes.
+
+**Enabling @AspectJ Support**
+
+- the `@EnableAspectJAutoProxy` annotation with Java `@Configuration`
+- the `<aop:aspectj-autoproxy/>` element with XML based configuration
+
+**Declaring an aspect**
+
+- a regular bean definition [XML]
+- a class with the `@Aspect` annotation [Java]
