@@ -33,28 +33,4 @@ public class Starter {
 
     private @Autowired ConfigurableBeanFactory factory;
 
-    public @Bean ApplicationRunner getRunner() {
-        return (arguments) -> {
-
-            factory.registerScope("super-scope", new MyScope());
-            System.out.println("the scope is registered");
-
-
-        };
-    }
-
-}
-
-@Data
-@Builder
-@NoArgsConstructor(force = true)
-class User {
-    private String id;
-    private String firstName;
-    private String lastName;
-
-    public User(String a, String b, String c, String bd, String d) {
-
-    }
-
 }

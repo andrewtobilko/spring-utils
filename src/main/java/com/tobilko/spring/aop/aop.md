@@ -39,4 +39,4 @@
 **Combining pointcut expressions**
 
 - can be combined using `&&`, `||` and `!`;
-- considered a good practice.
+- considered a good practice to build more complex pointcut expressions out of smaller ones.
